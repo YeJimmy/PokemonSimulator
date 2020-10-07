@@ -1,0 +1,5 @@
+Name HP Attack Defense SpecialAttack SpecialDefense Speed
+Pikachu 274 209 179 199 199 279
+Charizard 360 267 255 317 269 299
+Blastoise 362 265 299 269 309 255
+Venusaur 364 263 265 299 299 259
