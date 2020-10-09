@@ -10,3 +10,9 @@ function Pokemon(PokemonName) {
 }
 
 const Pikachu = new Pokemon("Pikachu");
+
+//Choosing and putting together your team
+function createPokemonTeam() {
+}
+
+//
