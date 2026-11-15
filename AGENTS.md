@@ -11,6 +11,7 @@
 ## Guardrails — hard rules
 
 - **TDD always.** For every new feature or behavior change: write the failing tests from the ACs first, show them red, then implement, then show them green. `npm.cmd test` must be green before committing. Never skip the red step silently — if the tests already pass before implementation, the story wasn't understood, so stop and reassess.
+- **Branch per task.** Every task is implemented on its own branch named after the task, e.g. `T-35-regenerate-roster`. Branch from the latest `main`; never do task work directly on `main`. When the task is complete and `npm.cmd test` is green, propose opening a PR to `main` — opening it requires explicit user approval (see push rule).
 - **Push and PRs need explicit approval.** Local commits are fine without asking. Never run `git push`, open/merge a PR, or force-push without explicit user approval for that specific action.
 - **Show test seams, then ask.** When you propose or are asked for an implementation plan, first list the *test seams* — the exact points where behavior will be verified (exported functions, mocked `Math.random`, the UMD export guards, the IPC boundary, manually launched app for DOM) — and ask the user whether they're okay with that approach before writing any code. If no seam exists for a new behavior, create one and call it out explicitly.
 
