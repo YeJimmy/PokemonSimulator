@@ -8,7 +8,7 @@ the stats in `PokemonData.txt` and sprites from the [PokéAPI](https://pokeapi.c
 
 ## Features
 
-- **Pokédex**: grid of every Pokémon in `PokemonData.txt`; click one to see its
+- **Pokédex**: grid of every Pokémon in `PokemonData.txt` (the full Generation 1-3 roster, 386 entries, generated from PokéAPI); click one to see its
   official artwork and base-stat bars.
 - **Team Builder**: add/remove up to 6 Pokémon; the team is saved between runs
   (stored in `localStorage`) and shows team-wide stat averages.
@@ -67,6 +67,15 @@ src/
   app.js          UI logic: tabs, rendering, battle animation
 test/             node:test suites (run via npm test)
 ```
+
+## Regenerating the roster
+
+`PokemonData.txt` was generated from the PokéAPI with
+`node scripts/generate-pokemon-data.js`. It fetches base stats for IDs 1-386,
+computes level-100 max-IV/max-EV neutral stats (HP = 2×base+204,
+others = 2×base+99), verifies the original four Pokémon are unchanged, and
+rewrites the file plus `src/spriteIds.generated.js`. Re-run it to refresh;
+don't hand-edit the generated files.
 
 ## Adding more Pokémon
 

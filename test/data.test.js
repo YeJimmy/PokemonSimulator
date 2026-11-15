@@ -13,16 +13,17 @@ test("parses every row of the real PokemonData.txt", () => {
   const text = fs.readFileSync(DATA_FILE, "utf8");
   const pokemons = parsePokemonData(text);
 
-  assert.equal(pokemons.length, 4);
+  assert.equal(pokemons.length, 386);
   assert.deepEqual(
-    pokemons.map((p) => p.name),
-    ["Pikachu", "Charizard", "Blastoise", "Venusaur"]
+    pokemons.slice(0, 3).map((p) => p.name),
+    ["Bulbasaur", "Ivysaur", "Venusaur"]
   );
+  assert.ok(pokemons.some((p) => p.name === "Pikachu"));
 });
 
 test("header columns map to camelCase stats", () => {
   const text = fs.readFileSync(DATA_FILE, "utf8");
-  const [pikachu] = parsePokemonData(text);
+  const pikachu = parsePokemonData(text).find((p) => p.name === "Pikachu");
 
   assert.deepEqual(pikachu.stats, {
     hp: 274,
@@ -36,7 +37,7 @@ test("header columns map to camelCase stats", () => {
 
 test("stat total is the sum of all six stats", () => {
   const text = fs.readFileSync(DATA_FILE, "utf8");
-  const [pikachu] = parsePokemonData(text);
+  const pikachu = parsePokemonData(text).find((p) => p.name === "Pikachu");
 
   assert.equal(
     pikachu.total,
