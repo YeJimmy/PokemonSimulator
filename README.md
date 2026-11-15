@@ -3,16 +3,16 @@
 [![CI](https://github.com/YeJimmy/PokemonSimulator/actions/workflows/ci.yml/badge.svg)](https://github.com/YeJimmy/PokemonSimulator/actions/workflows/ci.yml)
 
 A desktop Pokémon battle simulator built with [Electron](https://www.electronjs.org/).
-Browse the Pokédex, build a team, and battle a random enemy team — all powered by
+Browse the Pokédex, build a team, and battle a random enemy team, all powered by
 the stats in `PokemonData.txt` and sprites from the [PokéAPI](https://pokeapi.co/) sprite CDN.
 
 ## Features
 
-- **Pokédex** — grid of every Pokémon in `PokemonData.txt`; click one to see its
+- **Pokédex**: grid of every Pokémon in `PokemonData.txt`; click one to see its
   official artwork and base-stat bars.
-- **Team Builder** — add/remove up to 6 Pokémon; team is saved between runs
+- **Team Builder**: add/remove up to 6 Pokémon; the team is saved between runs
   (stored in `localStorage`) and shows team-wide stat averages.
-- **Battle** — turn-based battles at level 100. Damage uses the classic formula
+- **Battle**: turn-based battles at level 100. Damage uses the classic formula
   with Attack/Defense (physical moves) or Special Attack/Special Defense
   (special moves), turn order is decided by priority then Speed, and there's a
   1/16 critical-hit chance. Win by fainting the whole enemy team.
@@ -55,7 +55,7 @@ User stories and tasks live as GitHub Issues:
 ## Project layout
 
 ```
-main.js           Electron main process — creates the window, reads PokemonData.txt
+main.js           Electron main process: creates the window, reads PokemonData.txt
 preload.js        Safe bridge exposing window.pokemonApi.loadPokemonData()
 PokemonData.txt   The data source: Name HP Attack Defense SpecialAttack SpecialDefense Speed
 Pokemon.js        Original starter file (kept for reference, not used by the app)
@@ -63,7 +63,7 @@ src/
   index.html      The single page with all three tabs
   styles.css      All styling
   data.js         Pokemon class, PokemonData.txt parser, PokéAPI sprite lookup
-  battle.js       Battle engine (damage formula, turn order, enemy AI) — no DOM code
+  battle.js       Battle engine (damage formula, turn order, enemy AI). No DOM code
   app.js          UI logic: tabs, rendering, battle animation
 test/             node:test suites (run via npm test)
 ```

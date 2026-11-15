@@ -1,4 +1,4 @@
-// src/data.js — the data layer.
+// src/data.js: the data layer.
 // Parses PokemonData.txt into Pokemon objects and knows how to find
 // sprites for each one via the free PokéAPI sprite CDN.
 
@@ -49,7 +49,7 @@ class Pokemon {
   }
 
   // Animated Generation-V sprites for battles (nicer!). Falls back to
-  // the static sprites above if the gif 404s — see onerror handlers in app.js.
+  // the static sprites above if the gif 404s; see onerror handlers in app.js.
   get animatedFrontUrl() {
     return this.spriteId
       ? `${SPRITE_CDN}/versions/generation-v/black-white/animated/${this.spriteId}.gif`

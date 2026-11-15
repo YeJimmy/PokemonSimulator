@@ -172,7 +172,7 @@ test("a turn applies damage to both sides and reports events", () => {
   assert.equal(battle.activeE.currentHp, 900 - 136);
 });
 
-test("fainting the last enemy Pokémon ends the battle — player wins", () => {
+test("fainting the last enemy Pokémon ends the battle: player wins", () => {
   const battle = new Battle(
     [mk("Hitter", 300, 200, 100, 100, 100, 50)],
     [mk("Weak", 100, 1, 100, 1, 100, 10)]
@@ -217,7 +217,7 @@ test("player faints and switches; battle continues", () => {
   assert.ok(events.some((e) => e.type === "switch" && e.side === "player"));
 });
 
-test("losing all your Pokémon ends the battle — enemy wins", () => {
+test("losing all your Pokémon ends the battle: enemy wins", () => {
   const battle = new Battle(
     [mk("Fragile", 100, 1, 1, 1, 1, 10)],
     [mk("Crusher", 900, 500, 100, 500, 100, 100)]

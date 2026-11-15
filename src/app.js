@@ -1,7 +1,7 @@
-// src/app.js — the user interface.
+// src/app.js: the user interface.
 // Holds app state, renders the three tabs (Pokédex / Team Builder /
 // Battle) and wires up all the buttons. Battle rules live in battle.js,
-// loading and parsing lives in data.js — this file is only about the DOM.
+// loading and parsing lives in data.js; this file is only about the DOM.
 
 const TEAM_STORAGE_KEY = "pokemon-simulator-team";
 const MAX_TEAM_SIZE = 6;

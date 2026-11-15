@@ -28,7 +28,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: npm
 
-      # The tests exercise the engine and parser directly in Node —
+      # The tests exercise the engine and parser directly in Node.
       # they never launch the Electron GUI, so skip downloading the
       # ~100MB Electron binary to keep CI fast.
       - name: Install dependencies

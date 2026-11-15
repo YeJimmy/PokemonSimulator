@@ -1,4 +1,4 @@
-// src/battle.js — the battle engine.
+// src/battle.js: the battle engine.
 // Pure logic, no DOM: it takes teams in, and reports events out through
 // callbacks. The UI (app.js) renders those events as sprites, HP bars
 // and a log. This separation keeps the rules easy to test and tweak.

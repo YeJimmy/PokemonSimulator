@@ -1,4 +1,4 @@
-// main.js — Electron "main process".
+// main.js: the Electron "main process".
 // This is the Node.js side of the app: it creates the desktop window
 // and reads PokemonData.txt from disk (renderer pages can't do that
 // directly for security reasons).
