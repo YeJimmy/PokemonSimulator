@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Sprites come from the PokÃ©API sprite CDN; API lookups from pokeapi.co -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; img-src 'self' https://raw.githubusercontent.com data:; connect-src https://pokeapi.co; style-src 'self' 'unsafe-inline'"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PokÃ©mon Simulator</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <h1>âš¡ PokÃ©mon Simulator</h1>
+      <nav class="tabs" role="tablist">
+        <button class="tab active" data-tab="pokedex" role="tab">PokÃ©dex</button>
+        <button class="tab" data-tab="team" role="tab">Team Builder</button>
+        <button class="tab" data-tab="battle" role="tab">Battle</button>
+      </nav>
+    </header>
+
+    <div id="load-error" class="load-error hidden">
+      <h2>Couldn't load PokemonData.txt</h2>
+      <p id="load-error-text"></p>
+    </div>
+
+    <main>
+      <!-- ============ PokÃ©dex tab ============ -->
+      <section id="view-pokedex" class="view active" role="tabpanel">
+        <div class="pokedex-layout">
+          <div id="pokedex-grid" class="pokedex-grid"></div>
+          <aside id="pokedex-detail" class="pokedex-detail">
+            <p class="empty-hint">Select a PokÃ©mon to see its stats.</p>
+          </aside>
+        </div>
+      </section>
+
+      <!-- ============ Team Builder tab ============ -->
+      <section id="view-team" class="view" role="tabpanel">
+        <div class="team-layout">
+          <div class="panel">
+            <h2>All PokÃ©mon</h2>
+            <div id="team-all-list" class="team-list"></div>
+          </div>
+          <div class="panel">
+            <div class="panel-heading">
+              <h2>Your Team</h2>
+              <span id="team-count" class="team-count">0 / 6</span>
+            </div>
+            <div id="team-slots" class="team-slots"></div>
+            <div id="team-summary" class="team-summary"></div>
+            <button id="clear-team-btn" class="btn danger">Clear team</button>
+            <p class="hint">Your team is saved automatically and used in the Battle tab.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ Battle tab ============ -->
+      <section id="view-battle" class="view" role="tabpanel">
+        <!-- Pre-battle setup -->
+        <div id="battle-setup" class="battle-setup">
+          <h2>Ready for a battle?</h2>
+          <div id="battle-empty" class="hidden">
+            <p class="empty-hint">You need at least one PokÃ©mon on your team first.</p>
+            <button id="go-to-team-btn" class="btn primary">Build your team</button>
+          </div>
+          <div id="battle-ready" class="hidden">
+            <p>Your team:</p>
+            <div id="setup-team" class="setup-team"></div>
+            <p class="hint">The enemy team is random â€” good luck!</p>
+            <button id="start-battle-btn" class="btn primary big">Start Battle</button>
+          </div>
+        </div>
+
+        <!-- Battle scene -->
+        <div id="battle-scene" class="battle-scene hidden">
+          <div class="arena">
+            <!-- Enemy side -->
+            <div class="combatant-row enemy-row">
+              <div class="hp-panel">
+                <div class="hp-panel-top">
+                  <span id="enemy-name" class="combatant-name"></span>
+                  <span class="level">Lv 100</span>
+                </div>
+                <div class="hp-track"><div id="enemy-hp-fill" class="hp-fill"></div></div>
+                <span id="enemy-hp-text" class="hp-text"></span>
+              </div>
+              <div id="enemy-sprite-box" class="sprite-box"></div>
+            </div>
+
+            <!-- Player side -->
+            <div class="combatant-row player-row">
+              <div id="player-sprite-box" class="sprite-box"></div>
+              <div class="hp-panel">
+                <div class="hp-panel-top">
+                  <span id="player-name" class="combatant-name"></span>
+                  <span class="level">Lv 100</span>
+                </div>
+                <div class="hp-track"><div id="player-hp-fill" class="hp-fill"></div></div>
+                <span id="player-hp-text" class="hp-text"></span>
+              </div>
+            </div>
+          </div>
+
+          <div id="battle-result" class="battle-result hidden">
+            <h2 id="battle-result-text"></h2>
+            <button id="exit-battle-btn" class="btn primary">Back</button>
+          </div>
+
+          <div class="battle-bottom">
+            <div id="move-buttons" class="move-buttons"></div>
+            <div id="battle-log" class="battle-log" aria-live="polite"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="data.js"></script>
+    <script src="battle.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>

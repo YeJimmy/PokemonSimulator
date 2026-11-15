@@ -1,0 +1,20 @@
+{
+  "name": "pokemon-simulator",
+  "version": "1.0.0",
+  "description": "A desktop Pokemon battle simulator, team builder and Pokedex viewer",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test"
+  },
+  "keywords": [
+    "pokemon",
+    "battle",
+    "simulator"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^45.3.2"
+  }
+}
