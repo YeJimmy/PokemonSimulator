@@ -3,7 +3,7 @@
 ## Workflow: read before implementing ANYTHING
 
 1. Check the GitHub issues and the [project board](https://github.com/users/YeJimmy/projects/1) before starting any feature work. Use `gh issue list --state open`. The issues are the source of truth for what is planned and done; there is no markdown story/task file.
-2. New work is defined as **user stories with acceptance criteria**, filed as GitHub issues labeled `user-story`. Number them sequentially after the last existing US (currently US-14). Never implement beyond what the ACs describe.
+2. New work is defined as **user stories with acceptance criteria**, filed as GitHub issues labeled `user-story`. Number them sequentially after the last existing US (currently US-15; check `gh issue list` for the latest). Never implement beyond what the ACs describe.
 3. Stories are broken into **tasks** filed as issues labeled `task`, with **hierarchical IDs that reset per story**. Tasks under US-6 are `6.1`, `6.2` and so on. A new story takes the next US number and its tasks start at `<n>.1`.
 4. Acceptance criteria describe **what the user notices is different**, not internal implementation details. Implementation steps belong in task issues.
 5. Confirm the story with the user before coding. Move the issue's board status through Todo, In Progress and Done as work progresses; reference `Closes #N` in the PR so merging closes the story.
@@ -24,7 +24,7 @@
 ```powershell
 npm.cmd install   # install deps
 npm.cmd start     # launch the Electron app
-npm.cmd test      # run the test suite (node --test, 22+ tests must pass)
+npm.cmd test      # run the test suite (node --test, suite must be green)
 ```
 
 ## Engineering rules
@@ -34,6 +34,9 @@ npm.cmd test      # run the test suite (node --test, 22+ tests must pass)
 - Test-first is mandatory; see Guardrails. `src/app.js` (DOM layer) is verified manually by launching the app.
 - PokemonData.txt is whitespace-separated with a header row; stats are level-100 max-IV/max-EV neutral values (HP = 2×base+204, others = 2×base+99).
 - Sprites come from the PokéAPI sprite CDN at runtime; sprites require internet access.
+- Generated files must never be hand-edited: `PokemonData.txt` and `src/spriteIds.generated.js` are produced by `scripts/generate-pokemon-data.js`. Change the generator, not the output.
+- Issue and PR bodies are written ASCII-only (write the file with Node, not PowerShell). PowerShell's `Set-Content -Encoding utf8` writes a BOM and mangles multi-byte characters; never use it for Markdown or source files. Verify a file's first bytes if unsure (EF BB BF means BOM).
+- After a PR merges: `git pull origin main`, confirm `npm.cmd test` is green, flip the board items to Done, and delete the task branch if the user wants it deleted.
 - The legacy `Pokemon.js` is kept for reference. Do not extend it; the app supersedes it.
 
 ## Commits
