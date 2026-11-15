@@ -155,7 +155,7 @@ test("a turn applies damage to both sides and reports events", () => {
     [mk("Hitter", 300, 200, 100, 100, 100, 50)],
     [mk("Wall", 900, 10, 100, 10, 100, 10)]
   );
-  // Enemy AI rolls first (stat tie → random pick; 0 picks Tackle).
+  // Enemy AI rolls first (stat tie: random pick; 0 picks Tackle).
   // Then player moves first (50 > 10).
   const events = withMockedRandom([0, 0.99, 1, 0.99, 1], () =>
     battle.takeTurn(TACKLE)
@@ -167,7 +167,7 @@ test("a turn applies damage to both sides and reports events", () => {
   assert.equal(attacks[0].damage, 136); // player hits enemy
   assert.match(attacks[0].text, /Hitter used Tackle/);
 
-  // Enemy's counterattack: atk 10 vs def 100 → at least 1 damage
+  // Enemy's counterattack: atk 10 vs def 100, at least 1 damage
   assert.ok(attacks[1].damage >= 1);
   assert.equal(battle.activeE.currentHp, 900 - 136);
 });

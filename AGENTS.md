@@ -6,7 +6,7 @@
 2. New work is defined as **user stories with acceptance criteria**, filed as GitHub issues labeled `user-story`. Number them sequentially after the last existing US (currently US-14). Never implement beyond what the ACs describe.
 3. Stories are broken into **tasks** filed as issues labeled `task`, with **hierarchical IDs that reset per story**. Tasks under US-6 are `6.1`, `6.2` and so on. A new story takes the next US number and its tasks start at `<n>.1`.
 4. Acceptance criteria describe **what the user notices is different**, not internal implementation details. Implementation steps belong in task issues.
-5. Confirm the story with the user before coding. Move the issue's board status (Todo → In Progress → Done) as work progresses; reference `Closes #N` in the PR so merging closes the story.
+5. Confirm the story with the user before coding. Move the issue's board status through Todo, In Progress and Done as work progresses; reference `Closes #N` in the PR so merging closes the story.
 
 ## Guardrails: hard rules
 

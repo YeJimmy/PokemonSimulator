@@ -1,21 +1,21 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <!-- Sprites come from the PokÃ©API sprite CDN; API lookups from pokeapi.co -->
+    <!-- Sprites come from the PokéAPI sprite CDN; API lookups from pokeapi.co -->
     <meta
       http-equiv="Content-Security-Policy"
       content="default-src 'self'; img-src 'self' https://raw.githubusercontent.com data:; connect-src https://pokeapi.co; style-src 'self' 'unsafe-inline'"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PokÃ©mon Simulator</title>
+    <title>Pokémon Simulator</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <header class="app-header">
-      <h1>âš¡ PokÃ©mon Simulator</h1>
+      <h1>⚡ Pokémon Simulator</h1>
       <nav class="tabs" role="tablist">
-        <button class="tab active" data-tab="pokedex" role="tab">PokÃ©dex</button>
+        <button class="tab active" data-tab="pokedex" role="tab">Pokédex</button>
         <button class="tab" data-tab="team" role="tab">Team Builder</button>
         <button class="tab" data-tab="battle" role="tab">Battle</button>
       </nav>
@@ -27,12 +27,12 @@
     </div>
 
     <main>
-      <!-- ============ PokÃ©dex tab ============ -->
+      <!-- ============ Pokédex tab ============ -->
       <section id="view-pokedex" class="view active" role="tabpanel">
         <div class="pokedex-layout">
           <div id="pokedex-grid" class="pokedex-grid"></div>
           <aside id="pokedex-detail" class="pokedex-detail">
-            <p class="empty-hint">Select a PokÃ©mon to see its stats.</p>
+            <p class="empty-hint">Select a Pokémon to see its stats.</p>
           </aside>
         </div>
       </section>
@@ -41,7 +41,7 @@
       <section id="view-team" class="view" role="tabpanel">
         <div class="team-layout">
           <div class="panel">
-            <h2>All PokÃ©mon</h2>
+            <h2>All Pokémon</h2>
             <div id="team-all-list" class="team-list"></div>
           </div>
           <div class="panel">
@@ -63,13 +63,13 @@
         <div id="battle-setup" class="battle-setup">
           <h2>Ready for a battle?</h2>
           <div id="battle-empty" class="hidden">
-            <p class="empty-hint">You need at least one PokÃ©mon on your team first.</p>
+            <p class="empty-hint">You need at least one Pokémon on your team first.</p>
             <button id="go-to-team-btn" class="btn primary">Build your team</button>
           </div>
           <div id="battle-ready" class="hidden">
             <p>Your team:</p>
             <div id="setup-team" class="setup-team"></div>
-            <p class="hint">The enemy team is random â€” good luck!</p>
+            <p class="hint">The enemy team is random. Good luck!</p>
             <button id="start-battle-btn" class="btn primary big">Start Battle</button>
           </div>
         </div>
