@@ -7,6 +7,7 @@
 3. Stories are broken into **tasks** filed as issues labeled `task`, with **hierarchical IDs that reset per story**. Tasks under US-6 are `6.1`, `6.2` and so on. A new story takes the next US number and its tasks start at `<n>.1`.
 4. Acceptance criteria describe **what the user notices is different**, not internal implementation details. Implementation steps belong in task issues.
 5. Confirm the story with the user before coding. Move the issue's board status through Todo, In Progress and Done as work progresses; reference `Closes #N` in the PR so merging closes the story.
+6. Every user story description ends with a `Tasks:` section listing exactly its child task issue references and nothing else, one per line (e.g. `- #57`). No checkboxes, no titles, no labels — each `#N` reference links straight to the task issue, which is the source of truth for its open/closed state. Keep this list in sync whenever a task is filed or closed.
 
 ## Guardrails: hard rules
 
