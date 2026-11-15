@@ -1,14 +1,14 @@
 // src/app.js: the user interface.
 // Holds app state, renders the three tabs (Pokédex / Team Builder /
 // Battle) and wires up all the buttons. Battle rules live in battle.js,
-// loading and parsing lives in data.js; this file is only about the DOM.
+// Battle rules live in battle.js, loading and parsing lives in data.js,
+// team membership rules live in team.js; this file is only about the DOM.
 
 const TEAM_STORAGE_KEY = "pokemon-simulator-team";
-const MAX_TEAM_SIZE = 6;
 
 const state = {
   pokemons: [], // every Pokémon from PokemonData.txt
-  teamNames: [], // names of Pokémon in the player's saved team
+  team: new Team(), // the player's team (rules enforced by team.js)
   selectedName: null, // which Pokémon the Pokédex detail pane shows
   battle: null, // current Battle instance, or null
   battleBusy: false, // true while battle animations are playing out
@@ -23,7 +23,7 @@ function findPokemon(name) {
 }
 
 function teamPokemons() {
-  return state.teamNames.map(findPokemon).filter(Boolean);
+  return state.team.names.map(findPokemon).filter(Boolean);
 }
 
 // ---------- Team persistence ----------
@@ -31,14 +31,14 @@ function teamPokemons() {
 function loadTeam() {
   try {
     const saved = JSON.parse(localStorage.getItem(TEAM_STORAGE_KEY) ?? "[]");
-    state.teamNames = Array.isArray(saved) ? saved : [];
+    state.team = new Team(Array.isArray(saved) ? saved : []);
   } catch {
-    state.teamNames = [];
+    state.team = new Team();
   }
 }
 
 function saveTeam() {
-  localStorage.setItem(TEAM_STORAGE_KEY, JSON.stringify(state.teamNames));
+  localStorage.setItem(TEAM_STORAGE_KEY, JSON.stringify(state.team.names));
 }
 
 // ---------- Tabs ----------
@@ -146,7 +146,7 @@ function renderTeamBuilder() {
 
   list.innerHTML = "";
   for (const pokemon of state.pokemons) {
-    const inTeam = state.teamNames.includes(pokemon.name);
+    const inTeam = state.team.names.includes(pokemon.name);
     const row = document.createElement("div");
     row.className = "team-row";
     row.innerHTML = `
@@ -162,12 +162,12 @@ function renderTeamBuilder() {
     list.append(row);
   }
 
-  count.textContent = `${state.teamNames.length} / ${MAX_TEAM_SIZE}`;
+  count.textContent = `${state.team.names.length} / ${MAX_TEAM_SIZE}`;
 
   slots.innerHTML = "";
   for (let i = 0; i < MAX_TEAM_SIZE; i++) {
     const slot = document.createElement("div");
-    const member = state.teamNames[i] ? findPokemon(state.teamNames[i]) : null;
+    const member = state.team.names[i] ? findPokemon(state.team.names[i]) : null;
     slot.className = member ? "team-slot filled" : "team-slot";
     if (member) {
       slot.innerHTML = `
@@ -205,11 +205,10 @@ function renderTeamBuilder() {
 }
 
 function toggleTeamMember(name) {
-  const index = state.teamNames.indexOf(name);
-  if (index >= 0) {
-    state.teamNames.splice(index, 1);
-  } else if (state.teamNames.length < MAX_TEAM_SIZE) {
-    state.teamNames.push(name);
+  if (state.team.names.includes(name)) {
+    state.team.remove(name);
+  } else {
+    state.team.add(name);
   }
   saveTeam();
   renderTeamBuilder();
@@ -220,8 +219,8 @@ function toggleTeamMember(name) {
 function renderBattleSetup() {
   $("#setup-team").innerHTML = "";
   const members = teamPokemons();
-  $("#battle-empty").classList.toggle("hidden", members.length > 0);
-  $("#battle-ready").classList.toggle("hidden", members.length === 0);
+  $("#battle-empty").classList.toggle("hidden", members.length >= MIN_TEAM_SIZE);
+  $("#battle-ready").classList.toggle("hidden", members.length < MIN_TEAM_SIZE);
 
   for (const member of members) {
     const img = document.createElement("img");
@@ -234,7 +233,7 @@ function renderBattleSetup() {
 
 function startBattle() {
   const members = teamPokemons();
-  if (members.length === 0) return;
+  if (members.length < MIN_TEAM_SIZE) return;
 
   const enemy = buildEnemyTeam(state.pokemons, members.length);
   state.battle = new Battle(members, enemy);
@@ -370,7 +369,7 @@ async function init() {
 
   // Team builder buttons
   $("#clear-team-btn").addEventListener("click", () => {
-    state.teamNames = [];
+    state.team.clear();
     saveTeam();
     renderTeamBuilder();
   });

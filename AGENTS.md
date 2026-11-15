@@ -31,7 +31,7 @@ npm.cmd test      # run the test suite (node --test, suite must be green)
 
 ## Engineering rules
 
-- `src/battle.js` and `src/data.js` contain all non-UI logic and are imported by `test/` via a UMD-style guard. Keep them DOM-free so they stay testable.
+- `src/battle.js`, `src/data.js` and `src/team.js` contain all non-UI logic and are imported by `test/` via a UMD-style guard. Keep them DOM-free so they stay testable.
 - `src/app.js` is the DOM layer; tests don't cover it. Verify manually by launching the app.
 - Test-first is mandatory; see Guardrails. `src/app.js` (DOM layer) is verified manually by launching the app.
 - PokemonData.txt is whitespace-separated with a header row; stats are level-100 max-IV/max-EV neutral values (HP = 2×base+204, others = 2×base+99).

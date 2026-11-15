@@ -38,9 +38,9 @@ npm.cmd test
 ```
 
 Uses the built-in Node test runner (`node --test`, no extra dependencies).
-`src/battle.js` and `src/data.js` are also importable in Node via a UMD-style
-guard, so the engine and parser can be tested without a browser. See
-`test/battle.test.js` and `test/data.test.js`.
+`src/battle.js`, `src/data.js` and `src/team.js` are also importable in Node via a
+UMD-style guard, so the engine, parser and team rules can be tested without a
+browser. See `test/battle.test.js`, `test/data.test.js` and `test/team.test.js`.
 
 ## Tracking work
 
@@ -64,6 +64,7 @@ src/
   styles.css      All styling
   data.js         Pokemon class, PokemonData.txt parser, PokéAPI sprite lookup
   battle.js       Battle engine (damage formula, turn order, enemy AI). No DOM code
+  team.js         Team membership rules (max 6, species-unique). No DOM code
   app.js          UI logic: tabs, rendering, battle animation
 test/             node:test suites (run via npm test)
 ```
