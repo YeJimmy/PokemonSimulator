@@ -42,10 +42,12 @@ Uses the built-in Node test runner (`node --test`, no extra dependencies).
 guard, so the engine and parser can be tested without a browser. See
 `test/battle.test.js` and `test/data.test.js`.
 
-## Planning docs
+## Tracking work
 
-`docs/user-stories.md` — user stories with acceptance criteria (retroactive).
-`docs/tasks.md` — task breakdown with status, including the testing retrofit.
+User stories and tasks live as GitHub Issues:
+[github.com/YeJimmy/PokemonSimulator/issues](https://github.com/YeJimmy/PokemonSimulator/issues)
+(labels `user-story` / `task`). Status is tracked on the project board:
+[PokemonSimulator board](https://github.com/users/YeJimmy/projects/1).
 
 > Note: on this machine `npm` in PowerShell is blocked by the execution policy,
 > so use `npm.cmd` instead.
@@ -64,7 +66,6 @@ src/
   battle.js       Battle engine (damage formula, turn order, enemy AI) — no DOM code
   app.js          UI logic: tabs, rendering, battle animation
 test/             node:test suites (run via npm test)
-docs/             User stories and task breakdown
 ```
 
 ## Adding more Pokémon
