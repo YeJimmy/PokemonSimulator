@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <!-- Sprites come from the PokéAPI sprite CDN; API lookups from pokeapi.co -->
+    <!-- Sprites come from the PokéAPI sprite CDN; API lookups from pokeapi.co (fallback only) -->
     <meta
       http-equiv="Content-Security-Policy"
       content="default-src 'self'; img-src 'self' https://raw.githubusercontent.com data:; connect-src https://pokeapi.co; style-src 'self' 'unsafe-inline'"
@@ -117,6 +117,7 @@
       </section>
     </main>
 
+    <script src="spriteIds.generated.js"></script>
     <script src="data.js"></script>
     <script src="battle.js"></script>
     <script src="team.js"></script>

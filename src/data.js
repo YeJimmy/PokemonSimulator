@@ -2,15 +2,24 @@
 // Parses PokemonData.txt into Pokemon objects and knows how to find
 // sprites for each one via the free PokéAPI sprite CDN.
 
-// PokemonData.txt doesn't store sprite IDs, so we map the names we know.
-// If you add a new Pokemon to PokemonData.txt that isn't listed here,
-// we fall back to looking its ID up from the PokéAPI at runtime.
-const KNOWN_SPRITE_IDS = {
-  pikachu: 25,
-  charizard: 6,
-  blastoise: 9,
-  venusaur: 3,
-};
+// The generated map (scripts/generate-pokemon-data.js) covers every name
+// in PokemonData.txt, so startup needs no network lookups. In the browser
+// it is loaded as a plain script before this one and creates the global
+// SPRITE_IDS; under Node (tests) we require it instead. Anything not in
+// the map falls back to a runtime pokeapi.co lookup. If the map fails to
+// load we say so loudly rather than silently re-enabling 386 network lookups.
+let GENERATED_SPRITE_IDS = {};
+if (typeof SPRITE_IDS !== "undefined") {
+  GENERATED_SPRITE_IDS = SPRITE_IDS;
+} else if (typeof module !== "undefined" && module.exports) {
+  GENERATED_SPRITE_IDS = require("./spriteIds.generated.js").SPRITE_IDS;
+}
+if (Object.keys(GENERATED_SPRITE_IDS).length === 0) {
+  console.error(
+    "Sprite ID map missing or empty (src/spriteIds.generated.js); " +
+      "sprites will fall back to pokeapi.co lookups at startup."
+  );
+}
 
 const SPRITE_CDN =
   "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon";
@@ -82,16 +91,19 @@ function parsePokemonData(text) {
   });
 }
 
-// Resolve each Pokemon's numeric sprite ID. Known names use the table
-// above; anything else is looked up from https://pokeapi.co/api/v2/pokemon/{name}.
+// Resolve each Pokemon's numeric sprite ID. Names in the generated map
+// are resolved synchronously with no network; anything else is looked up
+// from https://pokeapi.co/api/v2/pokemon/{name}.
 async function resolveSpriteIds(pokemons) {
   await Promise.all(
     pokemons.map(async (pokemon) => {
-      const key = pokemon.name.toLowerCase();
-      if (KNOWN_SPRITE_IDS[key]) {
-        pokemon.spriteId = KNOWN_SPRITE_IDS[key];
+      // Map keys match PokemonData.txt names exactly (both come from the
+      // same generator); the pokeapi.co fallback lowercases for the URL.
+      if (Object.hasOwn(GENERATED_SPRITE_IDS, pokemon.name)) {
+        pokemon.spriteId = GENERATED_SPRITE_IDS[pokemon.name];
         return;
       }
+      const key = pokemon.name.toLowerCase();
       try {
         const res = await fetch(
           `https://pokeapi.co/api/v2/pokemon/${encodeURIComponent(key)}`
@@ -123,7 +135,6 @@ if (typeof module !== "undefined" && module.exports) {
     parsePokemonData,
     resolveSpriteIds,
     loadPokemons,
-    KNOWN_SPRITE_IDS,
     SPRITE_CDN,
   };
 }
